@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">News</string>
+    <string name="login">Login:</string>
+    <string name="password">Password:</string>
+    <string name="enter">Enter</string>
+    <string name="register">Registration</string>
+    <string name="search">Find</string>
+    <string name="name">Name:</string>
+    <string name="description">Description:</string>
+    <string name="create">Create</string>
+    <string name="load_image">Add image</string>
+
+</resources>

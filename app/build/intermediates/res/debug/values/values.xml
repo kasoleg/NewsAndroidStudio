@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="black">#000</color>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="h1">20dp</dimen>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">News</string>
+    <string name="create">Create</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/adresses.xml -->
+    <eat-comment/>
+    <string name="create_url">http://ada.neutrinosoft.net/Advertisement/Create</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="description">Description:</string>
+    <string name="enter">Enter</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/adresses.xml -->
+    <eat-comment/>
+    <string name="image_url">http://ada.neutrinosoft.net/Advertisement/Image/</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="load_image">Add image</string>
+    <string name="login">Login:</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/adresses.xml -->
+    <eat-comment/>
+    <string name="login_url">http://ada.neutrinosoft.net/User/Login</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="name">Name:</string>
+    <string name="password">Password:</string>
+    <string name="register">Registration</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/adresses.xml -->
+    <eat-comment/>
+    <string name="register_url">http://ada.neutrinosoft.net/User/Register</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="search">Find</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/adresses.xml -->
+    <eat-comment/>
+    <string name="search_url">http://ada.neutrinosoft.net/Advertisement/Search</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  
+    <string name="register_url">http://ada.neutrinosoft.net/User/Register</string>
+    <string name="login_url">http://ada.neutrinosoft.net/User/Login</string>
+    <string name="create_url">http://ada.neutrinosoft.net/Advertisement/Create</string>
+    <string name="search_url">http://ada.neutrinosoft.net/Advertisement/Search</string>
+    <string name="image_url">http://ada.neutrinosoft.net/Advertisement/Image/</string>
+    
+</resources>
