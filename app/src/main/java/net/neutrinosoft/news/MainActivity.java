@@ -68,29 +68,25 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 
 	@Override
 	public boolean onQueryTextSubmit(String query) {
-        if (isOnline()) {
-            requestData(getResources().getString(R.string.search_url), query);
-            return true;
-        } else {
-            Toast.makeText(this, "Network isn't available!",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        }
+        return false;
 	}
+
+
 
 	@Override
 	public boolean onQueryTextChange(String newText) {
-        if (newText.isEmpty()) {
+        if (!newText.isEmpty()) {
             if (isOnline()) {
-                requestData(getResources().getString(R.string.search_url), "");
+                requestData(getResources().getString(R.string.search_url), newText);
                 return true;
             } else {
                 Toast.makeText(this, "Network isn't available!",
                         Toast.LENGTH_LONG).show();
                 return false;
             }
+        } else {
+            return false;
         }
-        return false;
 	}
 
 	private class SearchTask extends AsyncTask<RequestPackage, String, String> {
