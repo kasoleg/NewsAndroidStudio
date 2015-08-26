@@ -41,6 +41,9 @@
     <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/adresses.xml -->
     <eat-comment/>
     <string name="search_url">http://ada.neutrinosoft.net/Advertisement/Search</string>
+    <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="title_search">search news</string>
     <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">

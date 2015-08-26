@@ -70,6 +70,7 @@ public final class R {
         public static final int register_url=0x7f07000c;
         public static final int search=0x7f07000d;
         public static final int search_url=0x7f07000e;
+        public static final int title_search=0x7f07000f;
     }
     public static final class style {
         /**  API 11 theme customizations can go here. 
