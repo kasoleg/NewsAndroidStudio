@@ -35,10 +35,5 @@ public class News {
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
-	public Bitmap getBitmap() {
-		return bitmap;
-	}
-	public void setBitmap(Bitmap bitmap) {
-		this.bitmap = bitmap;
-	}
+
 }

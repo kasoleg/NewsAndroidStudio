@@ -39,45 +39,35 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.btnRegister) {
-			if (isOnline()) {
-				String login = etLogin.getText().toString();
-				String password = etPassword.getText().toString();
-				if (login.isEmpty()) {
-					Toast.makeText(this, "Login is empty!",
-							Toast.LENGTH_LONG).show();
-					return;
-				}
-				if (password.isEmpty()) {
-					Toast.makeText(this, "Password is empty!",
-							Toast.LENGTH_LONG).show();
-					return;
-				}
-				requestData(getResources().getString(R.string.register_url));
-			} else {
-				Toast.makeText(this, "Network isn't available!",
+			String login = etLogin.getText().toString();
+			String password = etPassword.getText().toString();
+			if (login.isEmpty()) {
+				Toast.makeText(this, "Login is empty!",
 						Toast.LENGTH_LONG).show();
+				return;
 			}
+			if (password.isEmpty()) {
+				Toast.makeText(this, "Password is empty!",
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			requestData(getResources().getString(R.string.register_url));
 		}
 	}
 	
 	private void requestData(String uri) {
-		RequestPackage p = new RequestPackage();
-		p.setUri(uri);
-		p.setParam("login", etLogin.getText().toString());
-		p.setParam("password", etPassword.getText().toString());
-		new RegisterTask().execute(p);
-	}
-	
-	public boolean isOnline() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = cm.getActiveNetworkInfo();
-		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-			return true;
+		if (Utils.isOnline(this)) {
+			RequestPackage p = new RequestPackage();
+			p.setUri(uri);
+			p.setParam("login", etLogin.getText().toString());
+			p.setParam("password", etPassword.getText().toString());
+			new RegisterTask().execute(p);
 		} else {
-			return false;
+			Toast.makeText(this, "Network isn't available!",
+					Toast.LENGTH_LONG).show();
 		}
 	}
-
+	
 	private class RegisterTask extends AsyncTask<RequestPackage, String, String> {
 
 		@Override
@@ -107,7 +97,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		protected void onPostExecute(String json) {
 			prBar.setVisibility(View.INVISIBLE);
 			User user = JSONParser.parseUser(json);
-			if (user.getInfo().getSuccess() == true) {
+			if (user.getInfo().getSuccess()) {
 				Toast.makeText(getApplicationContext(),
 						"You are register successfully!",
 						Toast.LENGTH_LONG).show();
@@ -126,7 +116,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			sPref = getSharedPreferences(LoginActivity.USER_ID, MODE_PRIVATE);
 			Editor editor = sPref.edit();
 			editor.putString(LoginActivity.USER_ID, userId);
-			editor.commit();
+			editor.apply();
 		}
 
 	}

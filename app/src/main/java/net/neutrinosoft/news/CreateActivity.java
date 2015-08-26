@@ -37,10 +37,7 @@ public class CreateActivity extends Activity implements OnClickListener {
 	private SharedPreferences sPref;
 	private ImageView ivSelected;
 
-	private String filePath;
 	private Uri selectedImage;
-
-	private File file;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -136,9 +133,9 @@ public class CreateActivity extends Activity implements OnClickListener {
 			try {
 				client.addHeader("UserId", getUserId());
 				client.connectForMultipart();
-				client.addFormPart("name", etName.getText().toString());
-				client.addFormPart("description", etDescription.getText()
-						.toString());
+				for (String key: p.getParams().keySet()) {
+					client.addFormPart(key, p.getParams().get(key));
+				}
 				client.addFilePart("image", selectedImage.getLastPathSegment(),
 						baos.toByteArray());
 				client.finishMultipart();

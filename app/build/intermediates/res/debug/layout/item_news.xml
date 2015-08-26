@@ -10,7 +10,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/black" />
 
@@ -29,7 +28,6 @@
         android:layout_below="@+id/tvDescription"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="15dp"
-        android:text="Small Text"
         android:textColor="@color/black"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -40,7 +38,6 @@
         android:layout_below="@+id/ivNews"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black" />
 

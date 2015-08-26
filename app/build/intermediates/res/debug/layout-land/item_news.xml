@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvName"
         android:layout_below="@+id/tvName"
-        android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black" />
 
@@ -24,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvName"
         android:layout_alignParentTop="true"
-        android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -34,7 +32,6 @@
         android:layout_below="@+id/tvCreatedAt"
         android:layout_marginLeft="18dp"
         android:layout_toRightOf="@+id/ivNews"
-        android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/black" />
 

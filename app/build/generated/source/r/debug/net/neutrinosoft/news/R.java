@@ -64,11 +64,11 @@ public final class R {
         public static final int load_image=0x7f070006;
         public static final int login=0x7f070007;
         public static final int login_url=0x7f070008;
-        public static final int name=0x7f070009;
-        public static final int password=0x7f07000a;
-        public static final int register=0x7f07000b;
-        public static final int register_url=0x7f07000c;
-        public static final int search=0x7f07000d;
+        public static final int logout=0x7f070009;
+        public static final int name=0x7f07000a;
+        public static final int password=0x7f07000b;
+        public static final int register=0x7f07000c;
+        public static final int register_url=0x7f07000d;
         public static final int search_url=0x7f07000e;
         public static final int title_search=0x7f07000f;
     }

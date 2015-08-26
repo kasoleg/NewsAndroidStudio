@@ -52,12 +52,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnLogin:
-			if (isOnline()) {
-				requestData(getResources().getString(R.string.login_url));
-			} else {
-				Toast.makeText(this, "Network isn't available!",
-						Toast.LENGTH_LONG).show();
-			}
+			requestData(getResources().getString(R.string.login_url));
 			break;
 		case R.id.tvRegister:
 			startActivity(new Intent(this, RegisterActivity.class));
@@ -69,20 +64,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void requestData(String uri) {
-		RequestPackage p = new RequestPackage();
-		p.setUri(uri);
-		p.setParam("login", etLogin.getText().toString());
-		p.setParam("password", etPassword.getText().toString());
-		new LoginTask().execute(p);
-	}
-	
-	public boolean isOnline() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = cm.getActiveNetworkInfo();
-		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-			return true;
+		if (Utils.isOnline(this)) {
+			RequestPackage p = new RequestPackage();
+			p.setUri(uri);
+			p.setParam("login", etLogin.getText().toString());
+			p.setParam("password", etPassword.getText().toString());
+			new LoginTask().execute(p);
 		} else {
-			return false;
+			Toast.makeText(this, "Network isn't available!",
+					Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -115,7 +105,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		protected void onPostExecute(String json) {
 			prBar.setVisibility(View.INVISIBLE);
 			User user = JSONParser.parseUser(json);
-			if (user.getInfo().getSuccess() == true) {
+			if (user.getInfo().getSuccess()) {
 				Toast.makeText(getApplicationContext(),
 						"You are login successfully!",
 						Toast.LENGTH_LONG).show();
@@ -134,7 +124,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			sPref = getSharedPreferences(USER_ID, MODE_PRIVATE);
 			Editor editor = sPref.edit();
 			editor.putString(USER_ID, userId);
-			editor.commit();
+			editor.apply();
 		}
 
 	}

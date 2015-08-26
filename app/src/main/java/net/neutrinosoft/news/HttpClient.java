@@ -93,7 +93,7 @@ public class HttpClient {
 				connection.getInputStream()));
 		String line;
 		while ((line = reader.readLine()) != null) {
-			sb.append(line + '\n');
+			sb.append(line);
 		}
 		return sb.toString();
 	}
@@ -112,7 +112,6 @@ public class HttpClient {
 		os.write("Content-Type: text/plain\r\n".getBytes());
 		os.write(("Content-Disposition: form-data; name=\"" + paramName + "\"\r\n")
 				.getBytes());
-		;
 		os.write(("\r\n" + value + "\r\n").getBytes());
 
 	}

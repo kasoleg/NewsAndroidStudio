@@ -35,20 +35,20 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		prBar = (ProgressBar) findViewById(R.id.prBar2);
-		if (isOnline()) {
-			requestData(getResources().getString(R.string.search_url), "");
-		} else {
-			Toast.makeText(this, "Network isn't available!",
-					Toast.LENGTH_LONG).show();
-		}
+        requestData(getResources().getString(R.string.search_url), "");
 	}
 
 	private void requestData(String uri, String query) {
-		RequestPackage p = new RequestPackage();
-		p.setUri(uri);
-		p.setHeader("UserId", getUserId());
-		p.setParam("query", query);
-		new SearchTask().execute(p);
+        if (Utils.isOnline(this)) {
+            RequestPackage p = new RequestPackage();
+            p.setUri(uri);
+            p.setHeader("UserId", getUserId());
+            p.setParam("query", query);
+            new SearchTask().execute(p);
+        } else {
+            Toast.makeText(this, "Network isn't available!",
+                    Toast.LENGTH_LONG).show();
+        }
 	}
 
 	private String getUserId() {
@@ -56,16 +56,6 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 		return sPref.getString(LoginActivity.USER_ID, "");
 	}
 	
-	public boolean isOnline() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = cm.getActiveNetworkInfo();
-		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	@Override
 	public boolean onQueryTextSubmit(String query) {
         return false;
@@ -76,14 +66,8 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	@Override
 	public boolean onQueryTextChange(String newText) {
         if (!newText.isEmpty()) {
-            if (isOnline()) {
-                requestData(getResources().getString(R.string.search_url), newText);
-                return true;
-            } else {
-                Toast.makeText(this, "Network isn't available!",
-                        Toast.LENGTH_LONG).show();
-                return false;
-            }
+            requestData(getResources().getString(R.string.search_url), newText);
+            return true;
         } else {
             return false;
         }
@@ -145,7 +129,7 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_create:
-			if (isOnline()) {
+			if (Utils.isOnline(this)) {
 				Intent intent = new Intent(this, CreateActivity.class);
 				startActivity(intent);
 			} else {
@@ -157,7 +141,7 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 			sPref = getSharedPreferences(LoginActivity.USER_ID, MODE_PRIVATE);
 			Editor editor = sPref.edit();
 			editor.clear();
-			editor.commit();
+			editor.apply();
 			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 			break;
