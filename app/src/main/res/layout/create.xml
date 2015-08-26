@@ -55,13 +55,19 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_below="@+id/btnImage"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/btnCreate"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     
     <Button
         android:id="@+id/btnCreate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivSelected"
-        android:text="@string/create" />
+        android:text="@string/create"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

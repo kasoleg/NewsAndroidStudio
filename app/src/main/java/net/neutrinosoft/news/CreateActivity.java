@@ -8,12 +8,12 @@ import net.neutrinosoft.news.models.Info;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +25,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import static net.neutrinosoft.news.Utils.decodeSampledBitmapFromStream;
 
 public class CreateActivity extends Activity implements OnClickListener {
 
@@ -123,8 +125,10 @@ public class CreateActivity extends Activity implements OnClickListener {
 				break;
 			case REQUEST_IMAGE_EXTERNAL_STORAGE:
 				if(resultCode == RESULT_OK){
-					Uri selectedImage = data.getData();
-					ivSelected.setImageURI(selectedImage);
+					selectedImage = data.getData();
+
+					ivSelected.setImageBitmap(decodeSampledBitmapFromStream(this, selectedImage, null, ivSelected.getWidth(), ivSelected.getHeight()));
+
 				}
 				break;
 		}
@@ -170,7 +174,7 @@ public class CreateActivity extends Activity implements OnClickListener {
 					client.addFormPart(key, p.getParams().get(key));
 				}
 				if (baos != null) {
-					client.addFilePart("image", selectedImage.getLastPathSegment(),
+					client.addFilePart("image", p.getImageUri().getLastPathSegment(),
 							baos.toByteArray());
 				}
 				client.finishMultipart();
@@ -199,4 +203,16 @@ public class CreateActivity extends Activity implements OnClickListener {
 
 	}
 
+	public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+								   boolean filter) {
+		float ratio = Math.min(
+				(float) maxImageSize / realImage.getWidth(),
+				(float) maxImageSize / realImage.getHeight());
+		int width = Math.round((float) ratio * realImage.getWidth());
+		int height = Math.round((float) ratio * realImage.getHeight());
+
+		Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+				height, filter);
+		return newBitmap;
+	}
 }
