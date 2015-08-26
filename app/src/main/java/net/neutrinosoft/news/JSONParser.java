@@ -11,8 +11,6 @@ import net.neutrinosoft.news.models.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class JSONParser {
 
 	public static User parseUser(String json) {
@@ -47,7 +45,7 @@ public class JSONParser {
 			response.setInfo(info);
 			if (responseObject.optJSONArray("ads") != null) {
 				JSONArray array = responseObject.getJSONArray("ads");
-				List<News> newsList = new ArrayList<News>();
+				List<News> newsList = new ArrayList<>();
 
 				for (int i = 0; i < array.length(); i++) {
 

@@ -1,16 +1,17 @@
 package net.neutrinosoft.news;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.neutrinosoft.news.models.Info;
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
@@ -27,7 +28,8 @@ import android.widget.Toast;
 
 public class CreateActivity extends Activity implements OnClickListener {
 
-	final int REQUEST_CODE = 1;
+	static final int REQUEST_IMAGE_CAPTURE = 0;
+	static final int REQUEST_IMAGE_EXTERNAL_STORAGE = 1;
 
 	private EditText etName;
 	private EditText etDescription;
@@ -64,9 +66,25 @@ public class CreateActivity extends Activity implements OnClickListener {
 
 		case R.id.btnImage:
 			// create activity and start it for result
-			Intent intent = new Intent(Intent.ACTION_PICK,
-					MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-			startActivityForResult(intent, REQUEST_CODE);
+			AlertDialog.Builder builder = new AlertDialog.Builder(CreateActivity.this);
+			builder.setTitle(R.string.load_from)
+					.setItems(R.array.load_array, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							switch (which) {
+								case 0:
+									Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+											android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+									startActivityForResult(pickPhoto , REQUEST_IMAGE_EXTERNAL_STORAGE);
+									break;
+								case 1:
+									Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+									startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
+									break;
+							}
+						}
+					});
+			Dialog dialog = builder.create();
+			dialog.show();
 			break;
 		default:
 			break;
@@ -93,10 +111,22 @@ public class CreateActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_CODE && resultCode == RESULT_OK
-				&& data != null) {
-			selectedImage = data.getData();
-			ivSelected.setImageURI(selectedImage);
+
+		switch(requestCode) {
+			case REQUEST_IMAGE_CAPTURE:
+				if(resultCode == RESULT_OK){
+					Bundle extras = data.getExtras();
+					Bitmap imageBitmap = (Bitmap) extras.get("data");
+					ivSelected.setImageBitmap(imageBitmap);
+				}
+
+				break;
+			case REQUEST_IMAGE_EXTERNAL_STORAGE:
+				if(resultCode == RESULT_OK){
+					Uri selectedImage = data.getData();
+					ivSelected.setImageURI(selectedImage);
+				}
+				break;
 		}
 	}
 
@@ -112,22 +142,25 @@ public class CreateActivity extends Activity implements OnClickListener {
 		protected String doInBackground(RequestPackage... params) {
 			String json = null;
 			RequestPackage p = params[0];
+			ByteArrayOutputStream baos = null;
 			
 			//get bitmap from external storage
-			Bitmap bitmap = null;
-			try {
-				bitmap = MediaStore.Images.Media.getBitmap(
-						getApplicationContext().getContentResolver(),
-						p.getImageUri());
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			if (p.getImageUri() != null) {
+				Bitmap bitmap = null;
+				try {
+					bitmap = MediaStore.Images.Media.getBitmap(
+							getApplicationContext().getContentResolver(),
+							p.getImageUri());
+
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				baos = new ByteArrayOutputStream();
+				bitmap.compress(CompressFormat.PNG, 100, baos);
 			}
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			bitmap.compress(CompressFormat.PNG, 100, baos);
-
 			//create HttpClient and receive multipart request to server
 			HttpClient client = new HttpClient(p.getUri());
 			try {
@@ -136,8 +169,10 @@ public class CreateActivity extends Activity implements OnClickListener {
 				for (String key: p.getParams().keySet()) {
 					client.addFormPart(key, p.getParams().get(key));
 				}
-				client.addFilePart("image", selectedImage.getLastPathSegment(),
-						baos.toByteArray());
+				if (baos != null) {
+					client.addFilePart("image", selectedImage.getLastPathSegment(),
+							baos.toByteArray());
+				}
 				client.finishMultipart();
 				json = client.getResponse();
 			} catch (Exception e) {

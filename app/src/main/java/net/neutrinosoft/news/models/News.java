@@ -1,7 +1,5 @@
 package net.neutrinosoft.news.models;
 
-import java.util.Date;
-
 import android.graphics.Bitmap;
 
 public class News {

@@ -12,5 +12,10 @@
     <string name="load_image">Add image</string>
     <string name="title_search">search news</string>
     <string name="logout">Logout</string>
+    <string name="load_from">Load from:</string>
 
+    <string-array name="load_array">
+        <item>Gallery</item>
+        <item>Camera</item>
+    </string-array>
 </resources>

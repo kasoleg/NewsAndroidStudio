@@ -2,27 +2,17 @@ package net.neutrinosoft.news;
 
 import net.neutrinosoft.news.models.Response;
 import android.app.ListActivity;
-import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
-
-import java.util.List;
 
 public class MainActivity extends ListActivity implements SearchView.OnQueryTextListener {
 

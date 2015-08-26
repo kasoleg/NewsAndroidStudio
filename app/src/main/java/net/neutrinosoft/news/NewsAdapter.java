@@ -27,7 +27,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 	private MemoryCache memoryCache;
 
 	public NewsAdapter(Context context, int resource, List<News> objects,
-			String userId) {
+					   String userId) {
 		super(context, resource, objects);
 		this.context = context;
 		this.newsList = objects;
@@ -69,7 +69,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		viewHolder.tvCreatedAt.setText(news.getCreatedAt());
 		Bitmap bitmap = memoryCache.get(news.getId());
 		if (bitmap != null) {
-			//ImageView ivNews = (ImageView) view.findViewById(R.id.ivNews);
 			viewHolder.ivNews.setImageBitmap(bitmap);
 		} else {
 			NewsAndView container = new NewsAndView();
@@ -78,7 +77,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 			new ImageLoader().execute(container);
 		}
 		return convertView;
-		
+
 	}
 
 	class NewsAndView {
@@ -87,7 +86,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		public Bitmap bitmap;
 	}
 
-	
+
 	private class ImageLoader extends AsyncTask<NewsAndView, Void, NewsAndView> {
 
 		@Override
@@ -129,17 +128,17 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		}
 
 	}
-		
-	public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-	        boolean filter) {
-	    float ratio = Math.min(
-	            (float) maxImageSize / realImage.getWidth(),
-	            (float) maxImageSize / realImage.getHeight());
-	    int width = Math.round((float) ratio * realImage.getWidth());
-	    int height = Math.round((float) ratio * realImage.getHeight());
 
-	    Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-	            height, filter);
-	    return newBitmap;
+	public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+								   boolean filter) {
+		float ratio = Math.min(
+				(float) maxImageSize / realImage.getWidth(),
+				(float) maxImageSize / realImage.getHeight());
+		int width = Math.round((float) ratio * realImage.getWidth());
+		int height = Math.round((float) ratio * realImage.getHeight());
+
+		Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+				height, filter);
+		return newBitmap;
 	}
 }

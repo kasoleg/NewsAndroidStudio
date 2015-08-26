@@ -1,6 +1,5 @@
 package net.neutrinosoft.news;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;

@@ -9,8 +9,8 @@ import android.net.Uri;
 
 public class RequestPackage {
 	private String uri;
-	private Map<String, String> params = new HashMap<String, String>();
-	private Map<String, String> headers = new HashMap<String, String>();
+	private Map<String, String> params = new HashMap<>();
+	private Map<String, String> headers = new HashMap<>();
 	private Uri imageUri;
 
 	public String getUri() {
