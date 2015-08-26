@@ -3,23 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/etSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etSearch"
-        android:text="@string/search" />
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnSearch" />
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         android:id="@+id/prBar2"

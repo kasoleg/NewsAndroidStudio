@@ -17,25 +17,25 @@ public final class R {
         public static final int h1=0x7f060000;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int ic_action_search=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
         public static final int btnCreate=0x7f090007;
         public static final int btnImage=0x7f090004;
         public static final int btnLogin=0x7f09000f;
-        public static final int btnRegister=0x7f090014;
-        public static final int btnSearch=0x7f090012;
+        public static final int btnRegister=0x7f090012;
         public static final int etDescription=0x7f090003;
         public static final int etLogin=0x7f09000c;
         public static final int etNews=0x7f090001;
         public static final int etPassword=0x7f09000e;
-        public static final int etSearch=0x7f090011;
         public static final int ivNews=0x7f090008;
         public static final int ivSelected=0x7f090006;
-        public static final int menu_create=0x7f090015;
-        public static final int menu_logout=0x7f090016;
+        public static final int menu_create=0x7f090013;
+        public static final int menu_logout=0x7f090014;
+        public static final int menu_search=0x7f090015;
         public static final int prBar=0x7f090005;
-        public static final int prBar2=0x7f090013;
+        public static final int prBar2=0x7f090011;
         public static final int tvCreatedAt=0x7f090009;
         public static final int tvDescription=0x7f090002;
         public static final int tvLogin=0x7f09000b;

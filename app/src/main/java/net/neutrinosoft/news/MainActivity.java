@@ -2,6 +2,8 @@ package net.neutrinosoft.news;
 
 import net.neutrinosoft.news.models.Response;
 import android.app.ListActivity;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,37 +19,35 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
-public class MainActivity extends ListActivity implements OnClickListener {
+import java.util.List;
 
-	private EditText etSearch = null;
-	private Button btnSearch = null;
+public class MainActivity extends ListActivity implements SearchView.OnQueryTextListener {
+
 	private ProgressBar prBar = null;
+	private SearchView search = null;
 	private SharedPreferences sPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		etSearch = (EditText) findViewById(R.id.etSearch);
-		btnSearch = (Button) findViewById(R.id.btnSearch);
 		prBar = (ProgressBar) findViewById(R.id.prBar2);
-		btnSearch.setOnClickListener(this);
 		if (isOnline()) {
-			requestData(getResources().getString(R.string.search_url));
+			requestData(getResources().getString(R.string.search_url), "");
 		} else {
 			Toast.makeText(this, "Network isn't available!",
 					Toast.LENGTH_LONG).show();
 		}
 	}
 
-	private void requestData(String uri) {
+	private void requestData(String uri, String query) {
 		RequestPackage p = new RequestPackage();
-		//p.setMethod("GET");
 		p.setUri(uri);
 		p.setHeader("UserId", getUserId());
-		p.setParam("query", etSearch.getText().toString());
+		p.setParam("query", query);
 		new SearchTask().execute(p);
 	}
 
@@ -64,6 +64,33 @@ public class MainActivity extends ListActivity implements OnClickListener {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+        if (isOnline()) {
+            requestData(getResources().getString(R.string.search_url), query);
+            return true;
+        } else {
+            Toast.makeText(this, "Network isn't available!",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+        if (newText.isEmpty()) {
+            if (isOnline()) {
+                requestData(getResources().getString(R.string.search_url), "");
+                return true;
+            } else {
+                Toast.makeText(this, "Network isn't available!",
+                        Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return false;
 	}
 
 	private class SearchTask extends AsyncTask<RequestPackage, String, String> {
@@ -111,20 +138,10 @@ public class MainActivity extends ListActivity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View v) {
-		if (v.getId() == R.id.btnSearch) {
-			if (isOnline()) {
-				requestData(getResources().getString(R.string.search_url));
-			} else {
-				Toast.makeText(this, "Network isn't available!",
-						Toast.LENGTH_LONG).show();
-			}
-		}
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
+		search = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        search.setOnQueryTextListener(this);
 		return super.onCreateOptionsMenu(menu);
 	}
 

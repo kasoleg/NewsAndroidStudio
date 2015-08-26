@@ -6,7 +6,12 @@
     <item 
         android:id="@+id/menu_logout"
         android:title="Выйти" />
-    
+
+    <item android:id="@+id/menu_search"
+        android:title="Hello"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:actionViewClass="android.widget.SearchView" />
 
 </menu>
 <!-- From: file:/C:/Users/Oleg/StudioProjects/News/app/src/main/res/menu/menu.xml -->
