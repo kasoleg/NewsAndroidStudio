@@ -40,6 +40,18 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		if (v.getId() == R.id.btnRegister) {
 			if (isOnline()) {
+				String login = etLogin.getText().toString();
+				String password = etPassword.getText().toString();
+				if (login.isEmpty()) {
+					Toast.makeText(this, "Login is empty!",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (password.isEmpty()) {
+					Toast.makeText(this, "Password is empty!",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
 				requestData(getResources().getString(R.string.register_url));
 			} else {
 				Toast.makeText(this, "Network isn't available!",
