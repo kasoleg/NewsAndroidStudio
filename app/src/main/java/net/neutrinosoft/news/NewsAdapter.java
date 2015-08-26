@@ -37,33 +37,47 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		memoryCache = new MemoryCache();
 	}
 
+	static class ViewHolder {
+		TextView tvName;
+		TextView tvDescription;
+		ImageView ivNews;
+		TextView tvCreatedAt;
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.item_news, parent, false);
+		ViewHolder viewHolder;
+
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.item_news, parent, false);
+			viewHolder = new ViewHolder();
+			viewHolder.tvName = (TextView) convertView.findViewById(R.id.tvName);
+			viewHolder.tvDescription = (TextView) convertView
+					.findViewById(R.id.tvDescription);
+			viewHolder.tvCreatedAt = (TextView) convertView.findViewById(R.id.tvCreatedAt);
+			viewHolder.ivNews = (ImageView) convertView.findViewById(R.id.ivNews);
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
 
 		News news = newsList.get(position);
-		TextView tvName = (TextView) view.findViewById(R.id.tvName);
-		tvName.setText(news.getName());
-
-		TextView tvDesctription = (TextView) view
-				.findViewById(R.id.tvDescription);
-		tvDesctription.setText(news.getDescription().trim());
-
-		TextView tvCreatedAt = (TextView) view.findViewById(R.id.tvCreatedAt);
-		tvCreatedAt.setText(news.getCreatedAt());
+		viewHolder.tvName.setText(news.getName());
+		viewHolder.tvDescription.setText(news.getDescription().trim());
+		viewHolder.tvCreatedAt.setText(news.getCreatedAt());
 		Bitmap bitmap = memoryCache.get(news.getId());
 		if (bitmap != null) {
-			ImageView ivNews = (ImageView) view.findViewById(R.id.ivNews);
-			ivNews.setImageBitmap(bitmap);
+			//ImageView ivNews = (ImageView) view.findViewById(R.id.ivNews);
+			viewHolder.ivNews.setImageBitmap(bitmap);
 		} else {
 			NewsAndView container = new NewsAndView();
 			container.news = news;
-			container.view = view;
+			container.view = convertView;
 			new ImageLoader().execute(container);
 		}
-		return view;
+		return convertView;
 		
 	}
 

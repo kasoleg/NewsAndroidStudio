@@ -70,7 +70,7 @@ ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:31
 	android:name
 		ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:32:13-42
 activity#net.neutrinosoft.news.RegisterActivity
-ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:35:9-95
+ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:35:9-85
 	android:label
 		ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:35:51-83
 	android:name
