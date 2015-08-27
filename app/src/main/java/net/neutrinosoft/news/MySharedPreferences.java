@@ -25,10 +25,7 @@ public class MySharedPreferences {
     }
 
     public boolean contains(String key) {
-        if (sPref.contains(key))
-            return true;
-        else
-            return false;
+        return sPref.contains(key);
     }
 
     public void clearEditor() {

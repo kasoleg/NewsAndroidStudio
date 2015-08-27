@@ -6,8 +6,6 @@ import net.neutrinosoft.news.models.Response;
 import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -60,8 +58,6 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	protected void onDestroy() {
 		super.onDestroy();
 		// store the data in the fragment
-		List<News> l = adapter.getNewsList();
-		MemoryCache m = adapter.getMemoryCache();
 		dataFragment.setNewsList(adapter.getNewsList());
 		dataFragment.setMemoryCache(adapter.getMemoryCache());
 	}

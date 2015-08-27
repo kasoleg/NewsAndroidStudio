@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 public class Utils {
     public static boolean isOnline(Context context) {

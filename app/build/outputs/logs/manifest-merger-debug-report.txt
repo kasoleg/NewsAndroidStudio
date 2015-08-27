@@ -36,7 +36,7 @@ ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:12
 	android:allowBackup
 		ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:13:9-35
 	android:icon
-		ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:14:9-45
+		ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:14:9-43
 	android:theme
 		ADDED from C:\Users\Oleg\StudioProjects\News\app\src\main\AndroidManifest.xml:16:9-40
 activity#net.neutrinosoft.news.LoginActivity

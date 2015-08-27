@@ -19,10 +19,6 @@ public final class R {
     public static final class dimen {
         public static final int h1=0x7f070000;
     }
-    public static final class drawable {
-        public static final int ic_action_search=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-    }
     public static final class id {
         public static final int btnCreate=0x7f0a0007;
         public static final int btnImage=0x7f0a0004;
@@ -56,6 +52,10 @@ public final class R {
     }
     public static final class menu {
         public static final int menu=0x7f090000;
+    }
+    public static final class mipmap {
+        public static final int ic_action_search=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
     }
     public static final class string {
         public static final int app_name=0x7f080000;

@@ -10,10 +10,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -104,7 +102,7 @@ public class CreateActivity extends Activity implements OnClickListener {
 	}
 
 	private String getUserId() {
-		// get UserId from SharedPrefernces
+		// get UserId from SharedPreferences
 		MySharedPreferences sPref = new MySharedPreferences(this, LoginActivity.USER_ID, MODE_PRIVATE);
 		return sPref.get(LoginActivity.USER_ID);
 	}
