@@ -38,7 +38,6 @@ public class CreateActivity extends Activity implements OnClickListener {
 	private Button btnCreate;
 	private Button btnImage;
 	private ProgressBar prBar;
-	private SharedPreferences sPref;
 	private ImageView ivSelected;
 
 	private Uri selectedImage;
@@ -106,8 +105,8 @@ public class CreateActivity extends Activity implements OnClickListener {
 
 	private String getUserId() {
 		// get UserId from SharedPrefernces
-		sPref = getSharedPreferences(LoginActivity.USER_ID, MODE_PRIVATE);
-		return sPref.getString(LoginActivity.USER_ID, "");
+		MySharedPreferences sPref = new MySharedPreferences(this, LoginActivity.USER_ID, MODE_PRIVATE);
+		return sPref.get(LoginActivity.USER_ID);
 	}
 
 	@Override
@@ -211,8 +210,7 @@ public class CreateActivity extends Activity implements OnClickListener {
 		int width = Math.round((float) ratio * realImage.getWidth());
 		int height = Math.round((float) ratio * realImage.getHeight());
 
-		Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+		return Bitmap.createScaledBitmap(realImage, width,
 				height, filter);
-		return newBitmap;
 	}
 }

@@ -24,11 +24,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private Button btnLogin = null;
 	private TextView tvRegister = null;
 	private ProgressBar prBar = null;
-	private SharedPreferences sPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		sPref = getSharedPreferences(USER_ID, MODE_PRIVATE);
+
+		MySharedPreferences sPref = new MySharedPreferences(this, USER_ID, MODE_PRIVATE);
 		if (sPref.contains(USER_ID)) {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
@@ -118,10 +118,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 
 		private void saveUserId(String userId) {
-			sPref = getSharedPreferences(USER_ID, MODE_PRIVATE);
-			Editor editor = sPref.edit();
-			editor.putString(USER_ID, userId);
-			editor.apply();
+			MySharedPreferences sPref = new MySharedPreferences(getApplicationContext(), USER_ID, MODE_PRIVATE);
+			sPref.put(USER_ID, userId);
 		}
 
 	}

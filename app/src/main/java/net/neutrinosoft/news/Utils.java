@@ -23,7 +23,7 @@ public class Utils {
     }
 
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Начальная высота и ширина изображения
+        // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
@@ -33,8 +33,8 @@ public class Utils {
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
 
-            // Рассчитываем наибольшее значение inSampleSize, которое равно степени двойки
-            // и сохраняем высоту и ширину, когда они больше необходимых
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
             while ((halfHeight / inSampleSize) > reqHeight
                     && (halfWidth / inSampleSize) > reqWidth) {
                 inSampleSize *= 2;
@@ -47,7 +47,7 @@ public class Utils {
     public static Bitmap decodeSampledBitmapFromStream(Context context, Uri image, Rect outPadding,
                                                          int reqWidth, int reqHeight) {
 
-        // Сначала вызываем декодер с опцией inJustDecodeBounds=true для проверки разрешения
+        // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         try {
@@ -56,10 +56,10 @@ public class Utils {
             e.printStackTrace();
         }
 
-        // Подсчитываем inSampleSize
+        // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
-        // Теперь вызываем декодер с установленной опцией inSampleSize
+        // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         Bitmap bitmap = null;
         try {

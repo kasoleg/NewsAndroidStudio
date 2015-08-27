@@ -20,8 +20,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	private EditText etPassword = null;
 	private Button btnRegister = null;
 	private ProgressBar prBar = null;
-	private SharedPreferences sPref;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,10 +109,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		}
 
 		private void saveUserId(String userId) {
-			sPref = getSharedPreferences(LoginActivity.USER_ID, MODE_PRIVATE);
-			Editor editor = sPref.edit();
-			editor.putString(LoginActivity.USER_ID, userId);
-			editor.apply();
+			MySharedPreferences sPref = new MySharedPreferences(getApplicationContext(), LoginActivity.USER_ID, MODE_PRIVATE);
+			sPref.put(LoginActivity.USER_ID, userId);
 		}
 
 	}

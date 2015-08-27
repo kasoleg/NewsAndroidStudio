@@ -23,7 +23,6 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 
 	private ProgressBar prBar = null;
 	private SearchView search = null;
-	private SharedPreferences sPref;
 	private RetainedFragment dataFragment;
 	private NewsAdapter adapter;
 
@@ -79,8 +78,8 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	}
 
 	private String getUserId() {
-		sPref = getSharedPreferences(LoginActivity.USER_ID, MODE_PRIVATE);
-		return sPref.getString(LoginActivity.USER_ID, "");
+		MySharedPreferences sPref = new MySharedPreferences(this, LoginActivity.USER_ID, MODE_PRIVATE);
+		return sPref.get(LoginActivity.USER_ID);
 	}
 	
 	@Override
@@ -165,10 +164,8 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 			}
 			break;
 		case R.id.menu_logout:
-			sPref = getSharedPreferences(LoginActivity.USER_ID, MODE_PRIVATE);
-			Editor editor = sPref.edit();
-			editor.clear();
-			editor.apply();
+			MySharedPreferences sPref = new MySharedPreferences(this, LoginActivity.USER_ID, MODE_PRIVATE);
+			sPref.clearEditor();
 			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 			break;
