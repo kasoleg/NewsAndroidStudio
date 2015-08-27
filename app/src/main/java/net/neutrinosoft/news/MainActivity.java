@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -147,7 +149,24 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		search = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        search.setOnQueryTextListener(this);
+		// Catch event on [x] button inside search view
+		int searchCloseButtonId = search.getContext().getResources()
+				.getIdentifier("android:id/search_close_btn", null, null);
+		ImageView closeButton = (ImageView) search.findViewById(searchCloseButtonId);
+		// Set on click listener
+		closeButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int searchTextViewId = search.getContext().getResources()
+						.getIdentifier("android:id/search_src_text", null, null);
+				TextView txSearch = (TextView) search.findViewById(searchTextViewId);
+				txSearch.setText("");
+				prBar = (ProgressBar) findViewById(R.id.prBar2);
+				requestData(getResources().getString(R.string.search_url), "");
+			}
+		});
+
+		search.setOnQueryTextListener(this);
 		return super.onCreateOptionsMenu(menu);
 	}
 
