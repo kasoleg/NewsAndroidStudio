@@ -129,6 +129,22 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
 	}
 
+	public void setNewsList(List<News> newsList) {
+		this.newsList = newsList;
+	}
+
+	public List<News> getNewsList() {
+		return newsList;
+	}
+
+	public void setMemoryCache(MemoryCache memoryCache) {
+		this.memoryCache = memoryCache;
+	}
+
+	public MemoryCache getMemoryCache() {
+		return memoryCache;
+	}
+
 	public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
 								   boolean filter) {
 		float ratio = Math.min(

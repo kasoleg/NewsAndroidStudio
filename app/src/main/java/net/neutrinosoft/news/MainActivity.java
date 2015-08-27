@@ -1,6 +1,9 @@
 package net.neutrinosoft.news;
 
+import net.neutrinosoft.news.models.News;
 import net.neutrinosoft.news.models.Response;
+
+import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,18 +17,52 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends ListActivity implements SearchView.OnQueryTextListener {
 
 	private ProgressBar prBar = null;
 	private SearchView search = null;
 	private SharedPreferences sPref;
+	private RetainedFragment dataFragment;
+	private NewsAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		prBar = (ProgressBar) findViewById(R.id.prBar2);
-        requestData(getResources().getString(R.string.search_url), "");
+
+		// find the retained fragment on activity restarts
+		FragmentManager fm = getFragmentManager();
+		dataFragment = (RetainedFragment) fm.findFragmentByTag("data");
+
+		// create the fragment and data the first time
+		if (dataFragment == null) {
+			// add the fragment
+			dataFragment = new RetainedFragment();
+			fm.beginTransaction().add(dataFragment, "data").commit();
+			// load the data from the web
+			//dataFragment.setData(loadMyData());
+			prBar = (ProgressBar) findViewById(R.id.prBar2);
+			requestData(getResources().getString(R.string.search_url), "");
+		} else {
+			// the data is available in dataFragment
+			adapter = new NewsAdapter(getApplicationContext(),
+					R.layout.item_news, dataFragment.getNewsList(), getUserId());
+			setListAdapter(adapter);
+			adapter.setMemoryCache(dataFragment.getMemoryCache());
+		}
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		// store the data in the fragment
+		List<News> l = adapter.getNewsList();
+		MemoryCache m = adapter.getMemoryCache();
+		dataFragment.setNewsList(adapter.getNewsList());
+		dataFragment.setMemoryCache(adapter.getMemoryCache());
 	}
 
 	private void requestData(String uri, String query) {
@@ -95,7 +132,7 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 				prBar.setVisibility(View.INVISIBLE);
 				Response response = JSONParser.parseNews(json);
 				if (response.getInfo().getSuccess()) {
-					NewsAdapter adapter = new NewsAdapter(getApplicationContext(),
+					adapter = new NewsAdapter(getApplicationContext(),
 							R.layout.item_news, response.getAds(), getUserId());
 					setListAdapter(adapter);
 				} else {
