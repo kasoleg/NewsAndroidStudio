@@ -37,30 +37,33 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		memoryCache = new MemoryCache();
 	}
 
-	static class ViewHolder {
+	class ViewHolder {
 		TextView tvName;
 		TextView tvDescription;
 		ImageView ivNews;
 		TextView tvCreatedAt;
+		ViewHolder(View view) {
+			tvName = (TextView) view.findViewById(R.id.tvName);
+			tvDescription = (TextView) view
+					.findViewById(R.id.tvDescription);
+			tvCreatedAt = (TextView) view.findViewById(R.id.tvCreatedAt);
+			ivNews = (ImageView) view.findViewById(R.id.ivNews);
+		}
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View row = convertView;
 		ViewHolder viewHolder;
 
-		if (convertView == null) {
+		if (row == null) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.item_news, parent, false);
-			viewHolder = new ViewHolder();
-			viewHolder.tvName = (TextView) convertView.findViewById(R.id.tvName);
-			viewHolder.tvDescription = (TextView) convertView
-					.findViewById(R.id.tvDescription);
-			viewHolder.tvCreatedAt = (TextView) convertView.findViewById(R.id.tvCreatedAt);
-			viewHolder.ivNews = (ImageView) convertView.findViewById(R.id.ivNews);
-			convertView.setTag(viewHolder);
+			row = inflater.inflate(R.layout.item_news, parent, false);
+			viewHolder = new ViewHolder(row);
+			row.setTag(viewHolder);
 		} else {
-			viewHolder = (ViewHolder) convertView.getTag();
+			viewHolder = (ViewHolder) row.getTag();
 		}
 
 		News news = newsList.get(position);
@@ -73,16 +76,16 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		} else {
 			NewsAndView container = new NewsAndView();
 			container.news = news;
-			container.view = convertView;
+			container.viewHolder = viewHolder;
 			new ImageLoader().execute(container);
 		}
-		return convertView;
+		return row;
 
 	}
 
 	class NewsAndView {
 		public News news;
-		public View view;
+		public ViewHolder viewHolder;
 		public Bitmap bitmap;
 	}
 
@@ -121,9 +124,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		@Override
 		protected void onPostExecute(NewsAndView result) {
 			Bitmap scaledBitmap = scaleDown(result.bitmap, 300, true);
-			ImageView ivNews = (ImageView) result.view
-					.findViewById(R.id.ivNews);
-			ivNews.setImageBitmap(scaledBitmap);
+			//ImageView ivNews = (ImageView) result.view
+			//		.findViewById(R.id.ivNews);
+			result.viewHolder.ivNews.setImageBitmap(scaledBitmap);
 			memoryCache.put(result.news.getId(), scaledBitmap);
 		}
 
