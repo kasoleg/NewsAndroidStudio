@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvName"
         android:layout_alignParentTop="true"
+        android:textColor="@color/black"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
