@@ -55,23 +55,23 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void requestData(String uri) {
-		if (InternetUtils.isOnline(this)) {
-			RequestPackage p = new RequestPackage();
-			p.setUri(uri);
-			p.setParam("login", etLogin.getText().toString());
-			p.setParam("password", etPassword.getText().toString());
-			new LoginTask().execute(p);
-		} else {
-			Toast.makeText(this, "Network isn't available!",
-					Toast.LENGTH_LONG).show();
-		}
+		RequestPackage p = new RequestPackage();
+		p.setUri(uri);
+		p.setParam("login", etLogin.getText().toString());
+		p.setParam("password", etPassword.getText().toString());
+		new LoginTask().execute(p);
 	}
 
 	private class LoginTask extends AsyncTask<RequestPackage, String, String> {
 
 		@Override
 		protected void onPreExecute() {
-			prBar.setVisibility(View.VISIBLE);
+			if (InternetUtils.isOnline(getApplicationContext())) {
+				prBar.setVisibility(View.VISIBLE);
+			} else {
+				Toast.makeText(getApplicationContext(), "Network isn't available!",
+						Toast.LENGTH_LONG).show();
+			}
 		}
 
 		@Override

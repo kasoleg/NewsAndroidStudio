@@ -60,16 +60,11 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	}
 
 	private void requestData(String uri, String query) {
-        if (InternetUtils.isOnline(this)) {
-            RequestPackage p = new RequestPackage();
-            p.setUri(uri);
-            p.setHeader("UserId", getUserId());
-            p.setParam("query", query);
-            new SearchTask().execute(p);
-        } else {
-            Toast.makeText(this, "Network isn't available!",
-                    Toast.LENGTH_LONG).show();
-        }
+		RequestPackage p = new RequestPackage();
+		p.setUri(uri);
+		p.setHeader("UserId", getUserId());
+		p.setParam("query", query);
+		new SearchTask().execute(p);
 	}
 
 	private String getUserId() {
@@ -98,7 +93,12 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 
 		@Override
 		protected void onPreExecute() {
-			prBar.setVisibility(View.VISIBLE);
+			if (InternetUtils.isOnline(getApplicationContext())) {
+				prBar.setVisibility(View.VISIBLE);
+			} else {
+				Toast.makeText(getApplicationContext(), "Network isn't available!",
+						Toast.LENGTH_LONG).show();
+			}
 		}
 
 		@Override
