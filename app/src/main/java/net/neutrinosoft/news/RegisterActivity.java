@@ -16,7 +16,6 @@ public class RegisterActivity extends Activity implements OnClickListener {
 
 	private EditText etLogin;
 	private EditText etPassword;
-	private Button btnRegister;
 	private ProgressBar prBar;
 
 	@Override
@@ -25,7 +24,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.register);
 		etLogin = (EditText) findViewById(R.id.etLogin);
 		etPassword = (EditText) findViewById(R.id.etPassword);
-		btnRegister = (Button) findViewById(R.id.btnRegister);
+		Button btnRegister = (Button) findViewById(R.id.btnRegister);
 		prBar = (ProgressBar) findViewById(R.id.prBar);
 		btnRegister.setOnClickListener(this);
 	}
@@ -50,7 +49,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	}
 	
 	private void requestData(String uri) {
-		if (Utils.isOnline(this)) {
+		if (InternetUtils.isOnline(this)) {
 			RequestPackage p = new RequestPackage();
 			p.setUri(uri);
 			p.setParam("login", etLogin.getText().toString());

@@ -17,8 +17,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	private EditText etLogin;
 	private EditText etPassword;
-	private Button btnLogin;
-	private TextView tvRegister;
 	private ProgressBar prBar;
 
 	@Override
@@ -34,8 +32,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.login);
 		etLogin = (EditText) findViewById(R.id.etLogin);
 		etPassword = (EditText) findViewById(R.id.etPassword);
-		btnLogin = (Button) findViewById(R.id.btnLogin);
-		tvRegister = (TextView) findViewById(R.id.tvRegister);
+		Button btnLogin = (Button) findViewById(R.id.btnLogin);
+		TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
 		prBar = (ProgressBar) findViewById(R.id.prBar);
 		btnLogin.setOnClickListener(this);
 		tvRegister.setOnClickListener(this);
@@ -57,7 +55,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void requestData(String uri) {
-		if (Utils.isOnline(this)) {
+		if (InternetUtils.isOnline(this)) {
 			RequestPackage p = new RequestPackage();
 			p.setUri(uri);
 			p.setParam("login", etLogin.getText().toString());

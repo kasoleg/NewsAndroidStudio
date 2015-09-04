@@ -24,8 +24,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import static net.neutrinosoft.news.Utils.decodeSampledBitmapFromStream;
-
 public class CreateActivity extends Activity implements OnClickListener {
 
 	static final int REQUEST_IMAGE_CAPTURE = 0;
@@ -33,8 +31,6 @@ public class CreateActivity extends Activity implements OnClickListener {
 
 	private EditText etName;
 	private EditText etDescription;
-	private Button btnCreate;
-	private Button btnImage;
 	private ProgressBar prBar;
 	private ImageView ivSelected;
 
@@ -47,8 +43,8 @@ public class CreateActivity extends Activity implements OnClickListener {
 		// get links to UI objects
 		etName = (EditText) findViewById(R.id.etNews);
 		etDescription = (EditText) findViewById(R.id.etDescription);
-		btnCreate = (Button) findViewById(R.id.btnCreate);
-		btnImage = (Button) findViewById(R.id.btnImage);
+		Button btnCreate = (Button) findViewById(R.id.btnCreate);
+		Button btnImage = (Button) findViewById(R.id.btnImage);
 		prBar = (ProgressBar) findViewById(R.id.prBar);
 		ivSelected = (ImageView) findViewById(R.id.ivSelected);
 		// setting up listeners
@@ -124,7 +120,7 @@ public class CreateActivity extends Activity implements OnClickListener {
 				if(resultCode == RESULT_OK){
 					selectedImage = data.getData();
 
-					ivSelected.setImageBitmap(decodeSampledBitmapFromStream(this, selectedImage, null, ivSelected.getWidth(), ivSelected.getHeight()));
+					ivSelected.setImageBitmap(ImageUtils.decodeSampledBitmapFromStream(this, selectedImage, null, ivSelected.getWidth(), ivSelected.getHeight()));
 
 				}
 				break;
@@ -182,6 +178,8 @@ public class CreateActivity extends Activity implements OnClickListener {
 			return json;
 		}
 
+
+
 		@Override
 		protected void onPostExecute(String json) {
 			prBar.setVisibility(View.INVISIBLE);
@@ -200,15 +198,4 @@ public class CreateActivity extends Activity implements OnClickListener {
 
 	}
 
-	public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-								   boolean filter) {
-		float ratio = Math.min(
-				(float) maxImageSize / realImage.getWidth(),
-				(float) maxImageSize / realImage.getHeight());
-		int width = Math.round((float) ratio * realImage.getWidth());
-		int height = Math.round((float) ratio * realImage.getHeight());
-
-		return Bitmap.createScaledBitmap(realImage, width,
-				height, filter);
-	}
 }

@@ -16,8 +16,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class MainActivity extends ListActivity implements SearchView.OnQueryTextListener {
 
 	private ProgressBar prBar;
@@ -62,7 +60,7 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	}
 
 	private void requestData(String uri, String query) {
-        if (Utils.isOnline(this)) {
+        if (InternetUtils.isOnline(this)) {
             RequestPackage p = new RequestPackage();
             p.setUri(uri);
             p.setHeader("UserId", getUserId());
@@ -169,7 +167,7 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_create:
-			if (Utils.isOnline(this)) {
+			if (InternetUtils.isOnline(this)) {
 				Intent intent = new Intent(this, CreateActivity.class);
 				startActivity(intent);
 			} else {
