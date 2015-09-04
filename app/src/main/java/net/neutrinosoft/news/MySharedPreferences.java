@@ -7,10 +7,8 @@ import android.content.SharedPreferences.Editor;
 public class MySharedPreferences {
     private SharedPreferences sPref;
     private Editor editor;
-    private Context context;
 
     public MySharedPreferences(Context context, String name, int mode) {
-        this.context = context;
         sPref = context.getSharedPreferences(name, mode);
     }
 
