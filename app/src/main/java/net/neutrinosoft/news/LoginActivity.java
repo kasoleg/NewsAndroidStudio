@@ -17,11 +17,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	static final String USER_ID = "userID";
 
-	private EditText etLogin = null;
-	private EditText etPassword = null;
-	private Button btnLogin = null;
-	private TextView tvRegister = null;
-	private ProgressBar prBar = null;
+	private EditText etLogin;
+	private EditText etPassword;
+	private Button btnLogin;
+	private TextView tvRegister;
+	private ProgressBar prBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

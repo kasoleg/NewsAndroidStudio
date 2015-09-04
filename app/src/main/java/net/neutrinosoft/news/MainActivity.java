@@ -21,8 +21,8 @@ import java.util.List;
 
 public class MainActivity extends ListActivity implements SearchView.OnQueryTextListener {
 
-	private ProgressBar prBar = null;
-	private SearchView search = null;
+	private ProgressBar prBar;
+	private SearchView search;
 	private RetainedFragment dataFragment;
 	private NewsAdapter adapter;
 

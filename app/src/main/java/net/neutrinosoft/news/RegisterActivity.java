@@ -14,10 +14,10 @@ import android.widget.Toast;
 
 public class RegisterActivity extends Activity implements OnClickListener {
 
-	private EditText etLogin = null;
-	private EditText etPassword = null;
-	private Button btnRegister = null;
-	private ProgressBar prBar = null;
+	private EditText etLogin;
+	private EditText etPassword;
+	private Button btnRegister;
+	private ProgressBar prBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
