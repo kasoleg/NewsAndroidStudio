@@ -27,6 +27,21 @@ public class MemoryCache implements Parcelable{
 		setLimit(Runtime.getRuntime().maxMemory() / 4);
 	}
 
+	protected MemoryCache(Parcel in) {
+	}
+
+	public static final Creator<MemoryCache> CREATOR = new Creator<MemoryCache>() {
+		@Override
+		public MemoryCache createFromParcel(Parcel in) {
+			return new MemoryCache(in);
+		}
+
+		@Override
+		public MemoryCache[] newArray(int size) {
+			return new MemoryCache[size];
+		}
+	};
+
 	private void setLimit(Long newLimit) {
 		limit = newLimit;
 		Log.i(TAG, "MemoryCache will use up to " + limit / 1024. / 1024. + "MB");

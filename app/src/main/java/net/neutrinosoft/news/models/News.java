@@ -11,8 +11,31 @@ public class News implements Parcelable {
 	private String name;
 	private String description;
 	private String createdAt;
-	private Bitmap bitmap;
-	
+	//private Bitmap bitmap;
+
+	public News() {
+	}
+
+	protected News(Parcel in) {
+		id = in.readString();
+		name = in.readString();
+		description = in.readString();
+		createdAt = in.readString();
+		//bitmap = in.readParcelable(Bitmap.class.getClassLoader());
+	}
+
+	public static final Creator<News> CREATOR = new Creator<News>() {
+		@Override
+		public News createFromParcel(Parcel in) {
+			return new News(in);
+		}
+
+		@Override
+		public News[] newArray(int size) {
+			return new News[size];
+		}
+	};
+
 	public String getId() {
 		return id;
 	}
@@ -50,9 +73,9 @@ public class News implements Parcelable {
 		dest.writeString(description);
 		dest.writeString(createdAt);
 
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] byteArray = stream.toByteArray();
-		dest.writeByteArray(byteArray);
+		//ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		//bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		//byte[] byteArray = stream.toByteArray();
+		//dest.writeByteArray(byteArray);
 	}
 }

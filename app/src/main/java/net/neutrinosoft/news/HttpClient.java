@@ -14,12 +14,10 @@ public class HttpClient {
 	private final String boundary = "SwA"
 			+ Long.toString(System.currentTimeMillis()) + "SwA";
 
-	private String url;
 	private HttpURLConnection connection;
 	private OutputStream os;
 
 	public HttpClient(String url) {
-		this.url = url;
 		try {
 			connection = (HttpURLConnection) (new URL(url)).openConnection();
 		} catch (MalformedURLException e) {

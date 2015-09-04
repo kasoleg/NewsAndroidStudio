@@ -26,8 +26,8 @@ import android.widget.Toast;
 
 public class CreateActivity extends Activity implements OnClickListener {
 
-	static final int REQUEST_IMAGE_CAPTURE = 0;
-	static final int REQUEST_IMAGE_EXTERNAL_STORAGE = 1;
+	private static final int REQUEST_IMAGE_CAPTURE = 0;
+	private static final int REQUEST_IMAGE_EXTERNAL_STORAGE = 1;
 
 	private EditText etName;
 	private EditText etDescription;
