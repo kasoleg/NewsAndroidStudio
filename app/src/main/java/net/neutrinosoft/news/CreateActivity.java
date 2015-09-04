@@ -97,14 +97,14 @@ public class CreateActivity extends Activity implements OnClickListener {
 		p.setParam("name", etName.getText().toString());
 		p.setParam("description", etDescription.getText().toString());
 		p.setImageUri(selectedImage);
-		p.setHeader(LoginActivity.USER_ID, getUserId());
+		p.setHeader(MySharedPreferences.USER_ID, getUserId());
 		new CreateNewsTask().execute(p);
 	}
 
 	private String getUserId() {
 		// get UserId from SharedPreferences
-		MySharedPreferences sPref = new MySharedPreferences(this, LoginActivity.USER_ID, MODE_PRIVATE);
-		return sPref.get(LoginActivity.USER_ID);
+		MySharedPreferences sPref = new MySharedPreferences(this, MySharedPreferences.USER_ID, MODE_PRIVATE);
+		return sPref.get(MySharedPreferences.USER_ID);
 	}
 
 	@Override

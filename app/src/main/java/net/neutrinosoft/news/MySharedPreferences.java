@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public class MySharedPreferences {
+
+    static final String USER_ID = "userID";
+
     private SharedPreferences sPref;
     private Editor editor;
 

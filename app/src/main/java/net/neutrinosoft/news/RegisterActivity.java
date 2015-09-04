@@ -107,8 +107,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		}
 
 		private void saveUserId(String userId) {
-			MySharedPreferences sPref = new MySharedPreferences(getApplicationContext(), LoginActivity.USER_ID, MODE_PRIVATE);
-			sPref.put(LoginActivity.USER_ID, userId);
+			MySharedPreferences sPref = new MySharedPreferences(getApplicationContext(), MySharedPreferences.USER_ID, MODE_PRIVATE);
+			sPref.put(MySharedPreferences.USER_ID, userId);
 		}
 
 	}

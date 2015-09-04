@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnClickListener {
 
-	static final String USER_ID = "userID";
-
 	private EditText etLogin;
 	private EditText etPassword;
 	private Button btnLogin;
@@ -26,8 +24,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		MySharedPreferences sPref = new MySharedPreferences(this, USER_ID, MODE_PRIVATE);
-		if (sPref.contains(USER_ID)) {
+		MySharedPreferences sPref = new MySharedPreferences(this, MySharedPreferences.USER_ID, MODE_PRIVATE);
+		if (sPref.contains(MySharedPreferences.USER_ID)) {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			finish();
@@ -116,8 +114,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 
 		private void saveUserId(String userId) {
-			MySharedPreferences sPref = new MySharedPreferences(getApplicationContext(), USER_ID, MODE_PRIVATE);
-			sPref.put(USER_ID, userId);
+			MySharedPreferences sPref = new MySharedPreferences(getApplicationContext(), MySharedPreferences.USER_ID, MODE_PRIVATE);
+			sPref.put(MySharedPreferences.USER_ID, userId);
 		}
 
 	}

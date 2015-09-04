@@ -1,6 +1,5 @@
 package net.neutrinosoft.news;
 
-import net.neutrinosoft.news.models.News;
 import net.neutrinosoft.news.models.Response;
 
 import android.app.FragmentManager;
@@ -76,8 +75,8 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 	}
 
 	private String getUserId() {
-		MySharedPreferences sPref = new MySharedPreferences(this, LoginActivity.USER_ID, MODE_PRIVATE);
-		return sPref.get(LoginActivity.USER_ID);
+		MySharedPreferences sPref = new MySharedPreferences(this, MySharedPreferences.USER_ID, MODE_PRIVATE);
+		return sPref.get(MySharedPreferences.USER_ID);
 	}
 	
 	@Override
@@ -179,7 +178,7 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 			}
 			break;
 		case R.id.menu_logout:
-			MySharedPreferences sPref = new MySharedPreferences(this, LoginActivity.USER_ID, MODE_PRIVATE);
+			MySharedPreferences sPref = new MySharedPreferences(this, MySharedPreferences.USER_ID, MODE_PRIVATE);
 			sPref.clearEditor();
 			startActivity(new Intent(this, LoginActivity.class));
 			finish();
