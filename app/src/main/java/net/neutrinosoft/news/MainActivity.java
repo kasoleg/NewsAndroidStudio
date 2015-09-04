@@ -2,7 +2,6 @@ package net.neutrinosoft.news;
 
 import net.neutrinosoft.news.models.Response;
 
-import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,11 +15,13 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends ListActivity implements SearchView.OnQueryTextListener {
 
 	private ProgressBar prBar;
 	private SearchView search;
-	private RetainedFragment dataFragment;
 	private NewsAdapter adapter;
 
 	@Override
@@ -28,35 +29,22 @@ public class MainActivity extends ListActivity implements SearchView.OnQueryText
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		// find the retained fragment on activity restarts
-		FragmentManager fm = getFragmentManager();
-		dataFragment = (RetainedFragment) fm.findFragmentByTag("data");
-
-		// create the fragment and data the first time
-		if (dataFragment == null) {
-			// add the fragment
-			dataFragment = new RetainedFragment();
-			fm.beginTransaction().add(dataFragment, "data").commit();
-			// load the data from the web
-			//dataFragment.setData(loadMyData());
+		if (savedInstanceState == null) {
 			prBar = (ProgressBar) findViewById(R.id.prBar2);
 			requestData(getResources().getString(R.string.search_url), "");
 		} else {
-			// the data is available in dataFragment
 			adapter = new NewsAdapter(getApplicationContext(),
-					R.layout.item_news, dataFragment.getNewsList(), getUserId());
+					R.layout.item_news, (List) savedInstanceState.getParcelableArrayList("news"), getUserId());
 			setListAdapter(adapter);
-			adapter.setMemoryCache(dataFragment.getMemoryCache());
+			adapter.setMemoryCache((MemoryCache) savedInstanceState.getParcelable("bitmaps"));
 		}
-
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		// store the data in the fragment
-		dataFragment.setNewsList(adapter.getNewsList());
-		dataFragment.setMemoryCache(adapter.getMemoryCache());
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putParcelableArrayList("news", (ArrayList) adapter.getNewsList());
+		outState.putParcelable("bitmaps", adapter.getMemoryCache());
 	}
 
 	private void requestData(String uri, String query) {

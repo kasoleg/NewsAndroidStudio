@@ -1,8 +1,12 @@
 package net.neutrinosoft.news.models;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class News {
+import java.io.ByteArrayOutputStream;
+
+public class News implements Parcelable {
 	private String id;
 	private String name;
 	private String description;
@@ -34,4 +38,21 @@ public class News {
 		this.createdAt = createdAt;
 	}
 
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(id);
+		dest.writeString(name);
+		dest.writeString(description);
+		dest.writeString(createdAt);
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] byteArray = stream.toByteArray();
+		dest.writeByteArray(byteArray);
+	}
 }

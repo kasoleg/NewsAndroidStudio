@@ -148,7 +148,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 		return memoryCache;
 	}
 
-	public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+	private Bitmap scaleDown(Bitmap realImage, float maxImageSize,
 								   boolean filter) {
 		float ratio = Math.min(
 				(float) maxImageSize / realImage.getWidth(),

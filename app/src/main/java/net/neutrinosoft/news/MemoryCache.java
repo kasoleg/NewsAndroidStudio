@@ -7,9 +7,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
-public class MemoryCache {
+public class MemoryCache implements Parcelable{
 
 	private static final String TAG = "MemoryCache";
 
@@ -103,5 +105,15 @@ public class MemoryCache {
 			return (long) (bitmap.getRowBytes() * bitmap.getHeight());
 		}
 		return 0L;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeMap(cache);
 	}
 }
